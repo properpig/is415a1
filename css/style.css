@@ -1,0 +1,149 @@
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: "Helvetica Neue", Aerial, Helvetica, sans-serif;
+}
+
+#map {
+  height: 100%;
+  width: 79.5%;
+  display: inline-block;
+  margin: 0;
+}
+
+#layers {
+  height: 100%;
+  width: 20%;
+  float: left;
+  display: inline-block;
+  padding: 5px;
+}
+
+#sortable, .notsortable {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#sortable li, .notsortable li {
+  padding: 0.3em;
+  font-size: 0.9em;
+  height: 34px;
+}
+
+#sortable li:nth-child(odd), .notsortable li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+#sortable li:hover, .notsortable li:hover {
+  cursor: pointer;
+}
+
+#sortable > li, .notsortable > li {
+  padding-right: 4px;
+}
+
+#sortable img:first-child, .notsortable img:first-child {
+  padding-right: 4px;
+}
+
+#layers .controls {
+  float: right;
+}
+
+#layers .controls img {
+  height: 20px;
+  padding: 2px;
+}
+
+#layers .controls i {
+  width: 20px;
+  padding: 2px;
+  text-align: center;
+  margin-top: 2px;
+}
+
+#layers .controls .off {
+  opacity: 0.3;
+}
+
+.crimeField {
+  width: 30px;
+}
+
+.leaflet-popup-content {
+  font-size: 1.3em;
+}
+
+#changeBaseLayerModal #options {
+  max-height: 550px;
+  overflow-y: auto;
+}
+
+.baseLayerOption {
+  background: #f9f9f9;
+  display: inline-block;
+  padding: 8px;
+  margin: 5px;
+}
+
+.baseLayerOption:hover {
+  background: #d8e8ff;
+  cursor: pointer;
+}
+
+#layers .panel {
+  margin: 0px;
+  padding: 0.85rem;
+}
+
+#userDefinedInput {
+  padding: 0.45rem !important;
+}
+
+#userDefinedInput p {
+  margin-bottom: 0px;
+  font-size: 0.8rem;
+}
+
+#fileInput {
+  background: none;
+  padding: 11px;
+  padding-left: 40px;
+  color: #000;
+}
+
+.clear {
+  clear: both;
+  height: 5px;
+}
+
+.legend {
+    line-height: 30px;
+    color: #555;
+    background-color: white;
+    opacity: 0.95;
+    width: 230px;
+    border-radius: 6px;
+    -webkit-border-radius: 0.6em;
+    -moz-border-radius: 0.6em;
+    font-size: 1.1rem;
+}
+
+.legend i {
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-right: 8px;
+}
+
+.legend h4 {
+  font-size: 1.3rem;
+}

@@ -1,0 +1,171 @@
+<!DOCTYPE HTML">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GeoWeb Mapping Application</title>
+
+    <!--main stylesheet-->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!--leaflet stylesheet-->
+    <link rel="stylesheet" href="css/leaflet.css"/>
+    <!--[if lte IE8]>
+    <link rel="stylesheet" href=css/leaflet.ie.css"/>
+    <![endif]-->
+
+    <link rel="stylesheet" href="css/MarkerCluster.css" />
+    <link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="css/gh-pages.css" />
+    <link rel="stylesheet" href="css/dvf.css" />
+
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/leaflet.awesome-markers.css">
+    <script src="js/vendor/modernizr.js"></script>
+  </head>
+  <body>
+
+    <!--div for the map-->
+    <div id="map"></div>
+    <div id="layers">
+        <div class="panel"><h5>Marker Layers</h5></div>
+        <ul class='notsortable'>
+            <li id="crimeMarkers"><img src="img/point.png" />Crime Location<span class="controls"><img class="visible on" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+            <li id="crimeProportionalSymbolLayer"><img src="img/point.png" />Crimes Proportional Symbol<span class="controls"><img class="visible on" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+            <li id="schoolsLayer"><img src="img/point.png" />Public School Location<span class="controls"><img class="visible off" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+        </ul>
+        <div class="clear"></div>
+        <div class="panel"><h5>Overlay Layers <div class="controls"><span data-tooltip class="has-tip" title="Drag an overlay layer to reorder it!"><i class="fa fa-sort fa-lg"></i></span></div></h5></div>
+        <ul id="sortable">
+            <li id="zipCodeBoundariesLayer"><img src="img/area.png" />Zip Code Boundaries<span class="controls"><span data-tooltip class="has-tip" title="When this layer is visible, you can zoom to an ZIP Code by clicking on the area"><i class="fa fa-info fa-lg"></i></span><img class="visible off" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+            <li id="sfpdDistrictsLayer"><img src="img/area.png" />SFPD Districts<span class="controls"><span data-tooltip class="has-tip" title="When this layer is visible, you can zoom to a Police District by clicking on the area"><i class="fa fa-info fa-lg"></i></span><img class="visible off" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+            <li id="neighborhoodLayer"><img src="img/area.png" />Planning Neighborhoods<span class="controls"><span data-tooltip class="has-tip" title="When this layer is visible, you can zoom to a neighborhood by clicking on the area"><i class="fa fa-info fa-lg"></i></span><img class="visible off" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+            <li id="crimeCountDistrictLayer"><img src="img/choro.png" />Crime (by District) Choropleth<span class="controls"><img class="visible on" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+            <li id="crimeCountLayer"><img src="img/choro.png" />Crime (by ZIP) Choropleth<span class="controls"><img class="visible off" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+            <li id="schoolCountLayer"><img src="img/choro.png" />Public Schools Choropleth<span class="controls"><img class="visible off" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+            <li id="incomeLevelLayer"><img src="img/choro.png" />Median Income Choropleth<span class="controls"><img class="visible off" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+            <li id="povertyLayer"><img src="img/choro.png" />% in Poverty Choropleth<span class="controls"><img class="visible off" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+            <li id="roadsLayer"><img src="img/line.png" />Roads Layer<span class="controls"><img class="visible off" src="img/eye.png" /><img class="zoom" src="img/magnify.png" /></span></li>
+        </ul>
+        <div class="clear"></div>
+        <div class="panel"><h5>Base Layer</h5></div>
+        <ul class='notsortable'>
+            <li id="baseLayer"><img src="img/raster.png" />Base Layer<span class="controls"><img class="visible on" src="img/eye.png" /><img id="changeBaseLayer" src="img/gear.png" /></span></li>
+        </ul>
+        <div class="clear"></div>
+        <div class="panel"><h5>User Defined Layers</h5></div>
+        <ul id="userDefined" class='notsortable'>
+        </ul>
+        <div class="panel callout" id="userDefinedInput">
+            <p>Select a GeoJSON or TopoJSON file:</p>
+            <input class="button" type="file" id="fileInput">
+        </div>
+        <pre id="fileDisplayArea"><pre>
+    </div>
+
+    <div id="changeBaseLayerModal" class="reveal-modal" data-reveal>
+        <h2>Select a new base layer...</h2>
+        <div id="options">
+            <div class='baseLayerOption' id="77922">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/77922/256/14/2620/6332.png"></a>
+                <p><b>-</b> by <i>Wildhoney</i></p>
+            </div>
+            <div class='baseLayerOption' id="1960">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/1960/256/14/2620/6332.png"></a>
+                <p><b>blackout</b> by <i>milosh</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="998">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/998/256/14/2620/6332.png"></a>
+                <p><b>Pale Dawn</b> by <i>CloudMade</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="1">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/1/256/14/2620/6332.png"></a>
+                <p><b>The Original</b> by <i>CloudMade</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="7">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/7/256/14/2620/6332.png"></a>
+                <p><b>Tourist</b> by <i>CloudMade</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="2536">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/2536/256/14/2620/6332.png"></a>
+                <p><b>candy</b> by <i>Tom Carden</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="2400">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/2400/256/14/2620/6332.png"></a>
+                <p><b>CityLiving</b> by <i>ed@cloudmade</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="2402">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/2402/256/14/2620/6332.png"></a>
+                <p><b>clean</b> by <i>basovink</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="1551">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/1551/256/14/2620/6332.png"></a>
+                <p><b>farn 1</b> by <i>farn</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="997">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/997/256/14/2620/6332.png"></a>
+                <p><b>Fresh</b> by <i>CloudMade</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="1181">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/1181/256/14/2620/6332.png"></a>
+                <p><b>godtv2</b> by <i>SeanCharles</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="1796">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/1796/256/14/2620/6332.png"></a>
+                <p><b>lite</b> by <i>omarp</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="1930">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/1930/256/14/2620/6332.png"></a>
+                <p><b>lynchian_light</b> by <i>moleitau</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="1913">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/1913/256/14/2620/6332.png"></a>
+                <p><b>lynchian_mid</b> by <i>moleitau</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="999">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/999/256/14/2620/6332.png"></a>
+                <p><b>Midnight Commander</b> by <i>CloudMade</i></b></p>
+            </div>
+            <div class='baseLayerOption' id="2172">
+                <a class="th"><img src="http://c.tile.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/2172/256/14/2620/6332.png"></a>
+                <p><b>Orange Yellow</b> by <i>oportocala</i></b></p>
+            </div>
+        </div>
+
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+
+
+
+
+    <!--libraries-->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/d3.min.js"></script>
+    <script src="js/foundation.min.js"></script>
+
+    <script src="js/leaflet-src.js"></script>
+    <script src="js/leaflet.markercluster-src.js"></script>
+    <script src="js/shp.js"></script>
+    <script src="js/catiline.js"></script>
+    <script src="js/leaflet.shpfile.js"></script>
+    <script src="js/jquery.csv-0.71.min.js"></script>
+    <script src="js/leaflet.geocsv-src.js"></script>
+    <script src="js/topojson.v1.min.js"></script>
+    <script src="js/L.TopoJSON.js"></script>
+    <script src="js/leaflet-dvf.js"></script>
+    <script src="js/leaflet.awesome-markers.js"></script>
+    <!-- // <script src="js/leaflet-dvf.markers.min.js"></script> -->
+
+    <!--link to main javascript file-->
+    <script src="js/crimecount.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/handlefiles.js"></script>
+
+    <script>
+      $(document).foundation();
+    </script>
+
+  </body>
+</html>
